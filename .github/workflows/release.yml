@@ -5,15 +5,7 @@ on:
     tags:
       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Release version (e.g., v1.4.0)'
-        required: true
-        default: 'v1.4.0'
-      release_notes:
-        description: 'Release notes (optional)'
-        required: false
-        default: 'Automated release via GitHub Actions'
+
 jobs:
   build:
     runs-on: macos-latest
@@ -44,9 +36,9 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
       with:
         files: build/Release/Bluesnooze.zip
-        tag_name: ${{ github.event.inputs.version || 'latest' }}
+        tag_name: 'latest'
         name: 'Latest Version'
-        body: ${{ github.event.inputs.release_notes || 'Bluesnooze with connect on wake and performance optimizations.' }}
+        body: 'Bluesnooze macOS application.'
         draft: false
         prerelease: false
       env:
